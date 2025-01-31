@@ -95,9 +95,6 @@ const Dashboard = () => {
       <main>
         <Header>
           <h1>Systemic Altruism</h1>
-          <ThemeButton>
-            🌙 Night Mode
-          </ThemeButton>
         </Header>
         
         <StatsGrid>
