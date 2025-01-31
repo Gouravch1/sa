@@ -244,11 +244,11 @@ const SideNav = () => {
   const [notifications, setNotifications] = useState(3);
 
   const navItems = [
-    { icon: '📊', label: 'Dashboard', notifications: 0 },
-    { icon: '👥', label: 'Users', notifications: 0 },
-    { icon: '📈', label: 'Analytics', notifications: notifications },
-    { icon: '⚙️', label: 'Settings', notifications: 0 },
-    { icon: '📁', label: 'Files', notifications: 0 }
+    { icon: '🏠', label: 'Dashboard', notifications: 0 },
+    { icon: '🎭', label: 'SA Club', notifications: 0 },
+    { icon: '🌸', label: 'Bloom Insights', notifications: notifications },
+    { icon: '📱', label: 'Social Media Engagement', notifications: 0 },
+    { icon: '💎', label: 'Luxury Goods Revenue', notifications: 0 }
   ];
 
   return (
