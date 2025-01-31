@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PieChart as RechartsPie, Pie, Cell, ResponsiveContainer, Legend, Tooltip, Sector } from 'recharts';
 import styled from '@emotion/styled';
-import { chartConfig } from '../utils/chartConfig';
+import {chartConfig} from '../utils/chartConfig';
 
 const ChartCard = styled.div`
   ${chartConfig.chartCard}

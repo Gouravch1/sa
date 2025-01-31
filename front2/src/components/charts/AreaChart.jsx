@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { AreaChart as RechartsArea, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Brush } from 'recharts';
 import styled from '@emotion/styled';
-import { chartConfig } from '../utils/chartConfig';
+import {chartConfig} from '../utils/chartConfig';
 
 const ChartCard = styled.div`
   ${chartConfig.chartCard}

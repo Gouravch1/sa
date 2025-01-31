@@ -1,6 +1,6 @@
 import { BarChart as RechartsBar, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styled from '@emotion/styled';
-import { chartConfig } from '../utils/chartConfig';
+import {chartConfig} from '../utils/chartConfig';
 
 const ChartCard = styled.div`
   ${chartConfig.chartCard}

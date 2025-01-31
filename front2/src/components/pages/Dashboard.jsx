@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import SideNav from './SideNav';
-import StatCard from './StatCard';
-import LineChart from './LineChart';
-import BarChart from './BarChart';
-import AreaChart from './AreaChart';
-import PieChart from './PieChart';
+import SideNav from '../layout/SideNav';    
+import StatCard from '../stats/StatCard';
+import LineChart from '../charts/LineChart';
+import BarChart from '../charts/BarChart';
+import AreaChart from '../charts/AreaChart';
+import PieChart from '../charts/PieChart';
+import "./dashboard.css";
 
 const DashboardContainer = styled.div`
   background: linear-gradient(135deg, #1a1f35 0%, #0a0f2c 100%);
