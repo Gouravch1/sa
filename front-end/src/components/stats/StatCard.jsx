@@ -314,9 +314,12 @@ const CustomTooltip = ({ active, payload, chartType }) => {
   return null;
 };
 
-const StatCard = ({ title, value, icon, growth }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [activePieIndex, setActivePieIndex] = useState(0);
+const StatCard = ({ title, value, icon, growth, isExpanded, onClose }) => {
+  const [internalExpanded, setInternalExpanded] = useState(false);
+  
+  // Use either internal or external expansion state
+  const expanded = isExpanded || internalExpanded;
+
   const detailData = generateDetailData(value, title, growth);
 
   // Calculate the actual growth rate for display
@@ -738,7 +741,7 @@ const StatCard = ({ title, value, icon, growth }) => {
 
   return (
     <>
-      <Card onClick={() => setIsExpanded(true)}>
+      <Card onClick={() => setInternalExpanded(true)}>
         <StatInfo>
           <h3>{title}</h3>
           <div>
@@ -759,8 +762,11 @@ const StatCard = ({ title, value, icon, growth }) => {
       </Card>
 
       <DetailedStats 
-        isExpanded={isExpanded}
-        setIsExpanded={setIsExpanded}
+        isExpanded={expanded}
+        setIsExpanded={(value) => {
+          setInternalExpanded(value);
+          if (!value) onClose?.();
+        }}
         title={title}
         detailedStats={detailedStats}
         chartColors={chartTheme}

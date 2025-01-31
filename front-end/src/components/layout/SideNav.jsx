@@ -239,16 +239,99 @@ const Badge = styled.div`
   border: 2px solid rgba(17, 24, 39, 0.98);
 `;
 
-const SideNav = () => {
+const NavLink = styled.a`
+  position: relative;
+  width: 100%;
+  border: none;
+  color: rgba(255, 255, 255, ${props => props.active ? '0.95' : '0.6'});
+  background: ${props => props.active ? 'rgba(99, 102, 241, 0.15)' : 'transparent'};
+  padding: 0.875rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid ${props => props.active ? 'rgba(99, 102, 241, 0.2)' : 'transparent'};
+
+  @media (max-width: 1024px) {
+    width: auto;
+    padding: 0.75rem;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: ${props => props.active ? '100%' : '0%'};
+    background: linear-gradient(180deg, #6366f1, #818cf8);
+    transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 4px 4px 0;
+    opacity: ${props => props.active ? '1' : '0'};
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &:hover {
+    color: white;
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateX(4px);
+
+    @media (max-width: 1024px) {
+      transform: translateY(-4px);
+    }
+
+    &::before {
+      height: 100%;
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+`;
+
+const SideNav = ({ onNavItemClick }) => {
   const [activeItem, setActiveItem] = useState(0);
   const [notifications, setNotifications] = useState(3);
 
   const navItems = [
-    { icon: '🏠', label: 'Dashboard', notifications: 0 },
-    { icon: '🎭', label: 'SA Club', notifications: 0 },
-    { icon: '🌸', label: 'Bloom Insights', notifications: notifications },
-    { icon: '📱', label: 'Social Media Engagement', notifications: 0 },
-    { icon: '💎', label: 'Luxury Goods Revenue', notifications: 0 }
+    { 
+      icon: '🏠', 
+      label: 'Dashboard', 
+      notifications: 0,
+      statCard: null 
+    },
+    { 
+      icon: '🎭', 
+      label: 'SA Club', 
+      notifications: 0,
+      statCard: 'Altruism Clubs'
+    },
+    { 
+      icon: '🌸', 
+      label: 'Bloom Insights', 
+      notifications: notifications,
+      statCard: 'Bloom Downloads'
+    },
+    { 
+      icon: '💎', 
+      label: 'Luxury Goods', 
+      notifications: 0,
+      statCard: 'Luxury Goods Revenue'
+    },
+    { 
+      icon: '🌟', 
+      label: 'Fellowship', 
+      notifications: 0,
+      statCard: 'Fellowship Applications'
+    }
   ];
 
   return (
@@ -257,7 +340,14 @@ const SideNav = () => {
         <NavItem 
           key={index}
           active={activeItem === index}
-          onClick={() => setActiveItem(index)}
+          onClick={() => {
+            setActiveItem(index);
+            if (item.statCard) {
+              onNavItemClick(item.statCard);
+            } else {
+              onNavItemClick(null);
+            }
+          }}
         >
           <IconWrapper active={activeItem === index}>
             {item.icon}
