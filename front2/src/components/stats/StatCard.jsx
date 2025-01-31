@@ -6,6 +6,7 @@ import {
   Area, AreaChart, CartesianGrid, ReferenceLine, PieChart, Pie,
   Cell, RadialBarChart, RadialBar, Legend, Bar, BarChart, Sector
 } from 'recharts';
+import DetailedStats from './DetailedStats';
 
 const Card = styled(motion.div)`
   background: rgba(255, 255, 255, 0.03);
@@ -459,6 +460,62 @@ const StatCard = ({ title, value, icon, growth }) => {
 
   const getDetailedStats = () => {
     switch (title) {
+      case "Total Donations":
+        const donationValue = parseInt(value.replace(/[^0-9]/g, ''));
+        return {
+          metrics: [
+            { 
+              label: "Average Donation", 
+              value: "₹" + (Math.floor(donationValue * 0.002)).toLocaleString(),
+              trend: "+15% this month",
+              trendColor: '#22c55e'  // Green color for positive trends
+            },
+            { 
+              label: "Total Donors", 
+              value: Math.floor(donationValue * 0.005).toLocaleString(),
+              trend: "+28 today",
+              trendColor: '#22c55e'
+            },
+            { 
+              label: "Recurring Donors", 
+              value: Math.floor(donationValue * 0.003).toLocaleString(),
+              trend: "+12% this month",
+              trendColor: '#22c55e'
+            },
+            { 
+              label: "Donation Success Rate", 
+              value: "94%",
+              trend: "+2% this month",
+              trendColor: '#22c55e'
+            }
+          ],
+          breakdown: {
+            title: "Donations by Category",
+            data: [
+              { 
+                name: "Education", 
+                value: 40,
+                amount: "₹" + (Math.floor(donationValue * 0.40)).toLocaleString()
+              },
+              { 
+                name: "Healthcare", 
+                value: 30,
+                amount: "₹" + (Math.floor(donationValue * 0.30)).toLocaleString()
+              },
+              { 
+                name: "Community", 
+                value: 20,
+                amount: "₹" + (Math.floor(donationValue * 0.20)).toLocaleString()
+              },
+              { 
+                name: "Emergency", 
+                value: 10,
+                amount: "₹" + (Math.floor(donationValue * 0.10)).toLocaleString()
+              }
+            ]
+          }
+        };
+
       case "Bloom Downloads":
         return {
           metrics: [
@@ -466,25 +523,25 @@ const StatCard = ({ title, value, icon, growth }) => {
               label: "iOS Downloads", 
               value: Math.floor(parseInt(value) * 0.6),
               trend: "+12% this month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Android Downloads", 
               value: Math.floor(parseInt(value) * 0.4),
               trend: "+8% this month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Active Users", 
               value: Math.floor(parseInt(value) * 0.75),
               trend: "+15% this month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "User Engagement", 
               value: "85%",
               trend: "+5% this month",
-              positive: true
+              trendColor: '#22c55e'
             }
           ],
           breakdown: {
@@ -505,25 +562,25 @@ const StatCard = ({ title, value, icon, growth }) => {
               label: "Active Members", 
               value: Math.floor(parseInt(value) * 25),
               trend: "+20% this month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Events This Month", 
               value: Math.floor(parseInt(value) * 2),
               trend: "+5 from last month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Average Attendance", 
               value: Math.floor(parseInt(value) * 15),
               trend: "+12% this month",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Member Satisfaction", 
               value: "92%",
               trend: "+3% this month",
-              positive: true
+              trendColor: '#22c55e'
             }
           ],
           breakdown: {
@@ -537,46 +594,6 @@ const StatCard = ({ title, value, icon, growth }) => {
           }
         };
 
-      case "Luxury Goods Revenue":
-        const baseValue = parseInt(value.replace(/[^0-9]/g, ''));
-        return {
-          metrics: [
-            { 
-              label: "Average Order Value", 
-              value: "₹" + (Math.floor(baseValue * 0.001)).toLocaleString() + "K",
-              trend: "+18% this month",
-              positive: true
-            },
-            { 
-              label: "Total Orders", 
-              value: Math.floor(baseValue * 0.005).toLocaleString(),
-              trend: "+25 orders today",
-              positive: true
-            },
-            { 
-              label: "Customer Retention", 
-              value: "78%",
-              trend: "+5% this month",
-              positive: true
-            },
-            { 
-              label: "New Customers", 
-              value: Math.floor(baseValue * 0.002).toLocaleString(),
-              trend: "+12 today",
-              positive: true
-            }
-          ],
-          breakdown: {
-            title: "Revenue by Category",
-            data: [
-              { name: "Premium Jewelry", value: 45, amount: "₹" + (Math.floor(baseValue * 0.45)).toLocaleString() },
-              { name: "Designer Watches", value: 30, amount: "₹" + (Math.floor(baseValue * 0.30)).toLocaleString() },
-              { name: "Limited Editions", value: 15, amount: "₹" + (Math.floor(baseValue * 0.15)).toLocaleString() },
-              { name: "Exclusive Items", value: 10, amount: "₹" + (Math.floor(baseValue * 0.10)).toLocaleString() }
-            ]
-          }
-        };
-
       case "Fellowship Applications":
         return {
           metrics: [
@@ -584,34 +601,90 @@ const StatCard = ({ title, value, icon, growth }) => {
               label: "Completed Applications", 
               value: Math.floor(parseInt(value) * 0.8),
               trend: "+45 this week",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Shortlisted", 
               value: Math.floor(parseInt(value) * 0.3),
               trend: "+15 this week",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Interview Stage", 
               value: Math.floor(parseInt(value) * 0.15),
               trend: "+8 this week",
-              positive: true
+              trendColor: '#22c55e'
             },
             { 
               label: "Success Rate", 
               value: "18%",
               trend: "+2% this month",
-              positive: true
+              trendColor: '#22c55e'
             }
           ],
           breakdown: {
-            title: "Applicant Background",
+            title: "Application Status Distribution",
             data: [
-              { name: "Tech & Innovation", value: 35 },
-              { name: "Social Impact", value: 30 },
-              { name: "Research", value: 20 },
-              { name: "Creative Arts", value: 15 }
+              { name: "Under Review", value: 40 },
+              { name: "Shortlisted", value: 30 },
+              { name: "Interview", value: 20 },
+              { name: "Selected", value: 10 }
+            ]
+          }
+        };
+
+      case "Luxury Goods Revenue":
+        const baseValue = parseInt(value.replace(/[^0-9]/g, ''));
+        return {
+          metrics: [
+            { 
+              label: "Average Order Value", 
+              value: "₹" + (Math.floor(baseValue/100)).toLocaleString(),
+              trend: "+18% this month",
+              trendColor: '#22c55e'
+            },
+            { 
+              label: "Total Orders", 
+              value: Math.floor(baseValue/10000).toLocaleString(),
+              trend: "+25 orders today",
+              trendColor: '#22c55e'
+            },
+            { 
+              label: "Customer Retention", 
+              value: "78%",
+              trend: "+5% this month",
+              trendColor: '#22c55e'
+            },
+            { 
+              label: "New Customers", 
+              value: Math.floor(baseValue/20000).toLocaleString(),
+              trend: "+12 today",
+              trendColor: '#22c55e'
+            }
+          ],
+          breakdown: {
+            title: "Revenue by Category",
+            data: [
+              { 
+                name: "Premium Jewelry", 
+                value: 45,
+                amount: "₹" + Math.floor(baseValue * 0.45).toLocaleString()
+              },
+              { 
+                name: "Designer Watches", 
+                value: 30,
+                amount: "₹" + Math.floor(baseValue * 0.30).toLocaleString()
+              },
+              { 
+                name: "Limited Editions", 
+                value: 15,
+                amount: "₹" + Math.floor(baseValue * 0.15).toLocaleString()
+              },
+              { 
+                name: "Exclusive Items", 
+                value: 10,
+                amount: "₹" + Math.floor(baseValue * 0.10).toLocaleString()
+              }
             ]
           }
         };
@@ -626,225 +699,72 @@ const StatCard = ({ title, value, icon, growth }) => {
 
   const detailedStats = getDetailedStats();
 
-  const MetricCard = styled(motion.div)`
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 1.5rem;
-    padding: 1.75rem;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateY(-2px);
-    }
-  `;
-
-  const getChartColors = (chartType) => {
-    switch (chartType) {
+  const getChartColors = () => {
+    switch (title) {
+      case "Total Donations":
+        return {
+          colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899'], // Green, Blue, Amber, Pink
+          highlight: '#34d399',
+          textColor: '#6ee7b7'
+        };
       case "Bloom Downloads":
         return {
-          colors: ['#6366f1', '#818cf8', '#a5b4fc', '#c7d2fe'],
+          colors: ['#6366f1', '#f43f5e', '#84cc16', '#8b5cf6'], // Indigo, Rose, Lime, Purple
           highlight: '#818cf8',
-          textColor: '#c7d2fe'
-        };
-      case "Altruism Clubs":
-        return {
-          colors: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0'],
-          highlight: '#4ade80',
-          textColor: '#86efac'
+          textColor: '#a5b4fc'
         };
       case "Luxury Goods Revenue":
         return {
-          colors: ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a'],
+          colors: ['#eab308', '#06b6d4', '#ef4444', '#10b981'], // Yellow, Cyan, Red, Emerald
           highlight: '#fbbf24',
           textColor: '#fcd34d'
         };
       case "Fellowship Applications":
         return {
-          colors: ['#ec4899', '#f472b6', '#f9a8d4', '#fbcfe8'],
+          colors: ['#d946ef', '#0ea5e9', '#f97316', '#14b8a6'], // Fuchsia, Sky, Orange, Teal
           highlight: '#f472b6',
           textColor: '#f9a8d4'
         };
       default:
         return {
-          colors: ['#6366f1', '#818cf8', '#a5b4fc', '#c7d2fe'],
+          colors: ['#6366f1', '#22c55e', '#f59e0b', '#ec4899'],
           highlight: '#818cf8',
-          textColor: '#c7d2fe'
+          textColor: '#a5b4fc'
         };
     }
   };
 
-  const chartTheme = getChartColors(title);
+  const chartTheme = getChartColors();
 
   return (
     <>
-      <Card
-        onClick={() => setIsExpanded(true)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
+      <Card onClick={() => setIsExpanded(true)}>
         <StatInfo>
           <h3>{title}</h3>
           <div>
             <span className="value">{value}</span>
             <span 
-              className="growth"
+              className="growth" 
               style={{ 
-                color: displayGrowth.startsWith('+') ? '#4ade80' : '#ef4444',
+                color: growth.startsWith('+') ? '#22c55e' : '#ef4444',
                 marginLeft: '8px',
                 fontWeight: '500'
               }}
             >
-              {displayGrowth}
+              {growth}
             </span>
           </div>
         </StatInfo>
         <IconWrapper>{icon}</IconWrapper>
       </Card>
 
-      <AnimatePresence>
-        {isExpanded && (
-          <DetailedView
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <ContentWrapper>
-              <CloseButton onClick={() => setIsExpanded(false)}>
-                ×
-              </CloseButton>
-              
-              <DetailHeader>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <h2>{title}</h2>
-                </motion.div>
-              </DetailHeader>
-              
-              <MetricsGrid>
-                {detailedStats.metrics.map((metric, index) => (
-                  <MetricCard
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                  >
-                    <MetricLabel>{metric.label}</MetricLabel>
-                    <MetricValue>{metric.value}</MetricValue>
-                    <TrendIndicator>
-                      {metric.trend}
-                    </TrendIndicator>
-                  </MetricCard>
-                ))}
-              </MetricsGrid>
-
-              <ChartSection>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  <h3 style={{ color: chartTheme.highlight }}>
-                    {detailedStats.breakdown.title}
-                  </h3>
-                  <ResponsiveContainer width="100%" height={400}>
-                    <PieChart>
-                      <Pie
-                        data={detailedStats.breakdown.data}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={100}
-                        outerRadius={140}
-                        fill="#8884d8"
-                        paddingAngle={5}
-                        dataKey="value"
-                        labelLine={false}
-                        onMouseEnter={(data, index) => {
-                          // You can add hover effects here if needed
-                        }}
-                        label={({
-                          cx,
-                          cy,
-                          midAngle,
-                          innerRadius,
-                          outerRadius,
-                          value,
-                          name,
-                          payload
-                        }) => {
-                          const RADIAN = Math.PI / 180;
-                          const radius = 25 + innerRadius + (outerRadius - innerRadius);
-                          const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                          const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-                          return (
-                            <text
-                              x={x}
-                              y={y}
-                              fill={chartTheme.textColor}
-                              textAnchor={x > cx ? 'start' : 'end'}
-                              dominantBaseline="central"
-                              style={{
-                                fontSize: '0.875rem',
-                                fontWeight: '500',
-                                opacity: 0.9,
-                                transition: 'fill 0.3s ease'
-                              }}
-                            >
-                              {title === "Luxury Goods Revenue" 
-                                ? `${name} (${value}% - ${payload.amount})`
-                                : `${name} (${value}%)`}
-                            </text>
-                          );
-                        }}
-                      >
-                        {detailedStats.breakdown.data.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={chartTheme.colors[index % chartTheme.colors.length]}
-                            style={{
-                              filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))',
-                              transition: 'filter 0.3s ease'
-                            }}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip 
-                        content={<CustomTooltip chartType={title} />}
-                        cursor={{ fill: 'transparent' }}
-                      />
-                      <Legend 
-                        verticalAlign="middle" 
-                        align="right"
-                        layout="vertical"
-                        wrapperStyle={{
-                          paddingLeft: '2rem'
-                        }}
-                        formatter={(value, entry, index) => (
-                          <span style={{ 
-                            color: chartTheme.textColor, 
-                            opacity: 0.9,
-                            fontSize: '0.875rem',
-                            transition: 'color 0.3s ease'
-                          }}>
-                            {value}
-                          </span>
-                        )}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </motion.div>
-              </ChartSection>
-            </ContentWrapper>
-          </DetailedView>
-        )}
-      </AnimatePresence>
+      <DetailedStats 
+        isExpanded={isExpanded}
+        setIsExpanded={setIsExpanded}
+        title={title}
+        detailedStats={detailedStats}
+        chartColors={chartTheme}
+      />
     </>
   );
 };
