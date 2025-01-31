@@ -6,6 +6,7 @@ import BarChart from '../charts/BarChart';
 import AreaChart from '../charts/AreaChart';
 import PieChart from '../charts/PieChart';
 import "./dashboard.css";
+import { useState } from 'react';
 
 const DashboardContainer = styled.div`
   background: linear-gradient(135deg, #1a1f35 0%, #0a0f2c 100%);
@@ -90,39 +91,56 @@ const ThemeButton = styled.button`
 `;
 
 const Dashboard = () => {
+  const [expandedCard, setExpandedCard] = useState(null);
+
+  const handleNavItemClick = (statCardTitle) => {
+    setExpandedCard(statCardTitle);
+  };
+
+  const statCards = [
+    {
+      title: "Altruism Clubs",
+      value: "42",
+      icon: "🎓",
+      growth: "+8 this month"
+    },
+    {
+      title: "Bloom Downloads",
+      value: "12,543",
+      icon: "📱",
+      growth: "+2.3k this week"
+    },
+    {
+      title: "Luxury Goods Revenue",
+      value: "₹8.2L",
+      icon: "✨",
+      growth: "+32% MTD"
+    },
+    {
+      title: "Fellowship Applications",
+      value: "789",
+      icon: "🌟",
+      growth: "+124 this batch"
+    }
+  ];
+
   return (
     <DashboardContainer>
-      <SideNav />
+      <SideNav onNavItemClick={handleNavItemClick} />
       <main>
         <Header>
-          <h1>Systemic Altruism Dashboard</h1>
+          <h1>Systemic Altruism</h1>
         </Header>
         
         <StatsGrid>
-          <StatCard 
-            title="Altruism Clubs" 
-            value="42" 
-            icon="🎓"
-            growth="+8 this month"
-          />
-          <StatCard 
-            title="Bloom Downloads" 
-            value="12,543" 
-            icon="📱"
-            growth="+2.3k this week"
-          />
-          <StatCard 
-            title="Luxury Goods Revenue" 
-            value="₹8.2L" 
-            icon="✨"
-            growth="+32% MTD"
-          />
-          <StatCard 
-            title="Fellowship Applications" 
-            value="789" 
-            icon="🌟"
-            growth="+124 this batch"
-          />
+          {statCards.map((card) => (
+            <StatCard 
+              key={card.title}
+              {...card}
+              isExpanded={expandedCard === card.title}
+              onClose={() => setExpandedCard(null)}
+            />
+          ))}
         </StatsGrid>
         
         <ChartsGrid>
