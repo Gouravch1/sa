@@ -95,7 +95,7 @@ const Dashboard = () => {
       <SideNav />
       <main>
         <Header>
-          <h1>Systemic Altruism</h1>
+          <h1>Systemic Altruism Dashboard</h1>
         </Header>
         
         <StatsGrid>
