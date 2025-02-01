@@ -5,7 +5,6 @@ import LineChart from '../charts/LineChart';
 import BarChart from '../charts/BarChart';
 import AreaChart from '../charts/AreaChart';
 import PieChart from '../charts/PieChart';
-import "./dashboard.css";
 import { useState } from 'react';
 
 const DashboardContainer = styled.div`
@@ -29,7 +28,6 @@ const Header = styled.header`
   padding: 1.5rem;
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  animation: fadeIn 0.5s ease-out;
   
   @media (min-width: 640px) {
     flex-direction: row;
@@ -51,7 +49,6 @@ const StatsGrid = styled.div`
   grid-template-columns: 1fr;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
-  animation: fadeIn 0.5s ease-out;
   
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
@@ -66,7 +63,6 @@ const ChartsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  animation: fadeIn 0.5s ease-out;
   
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

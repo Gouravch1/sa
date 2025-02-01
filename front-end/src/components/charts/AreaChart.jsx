@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { AreaChart as RechartsArea, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Brush } from 'recharts';
+import { AreaChart as RechartsArea, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styled from '@emotion/styled';
 import {chartConfig} from '../utils/chartConfig';
 
@@ -87,9 +87,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const AreaChart = ({ title }) => {
   const [timeframe, setTimeframe] = useState('1M');
-  const [hoveredDate, setHoveredDate] = useState(null);
   
-  // Generate more detailed data
   const generateData = useCallback(() => {
     const periods = {
       '1W': 7,
@@ -107,7 +105,6 @@ const AreaChart = ({ title }) => {
       const date = new Date();
       date.setDate(date.getDate() - (days - i - 1));
       
-      // Add some randomness and trends
       const trend = Math.sin(i / 10) * 1000;
       const noise = Math.random() * 500 - 250;
       
@@ -145,11 +142,6 @@ const AreaChart = ({ title }) => {
         <RechartsArea
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          onMouseMove={(e) => {
-            if (e?.activeLabel) {
-              setHoveredDate(e.activeLabel);
-            }
-          }}
         >
           <defs>
             <linearGradient id="gradient1" x1="0" y1="0" x2="0" y2="1">
@@ -160,13 +152,6 @@ const AreaChart = ({ title }) => {
               <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2}/>
               <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
             </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
 
           <CartesianGrid 
@@ -206,8 +191,7 @@ const AreaChart = ({ title }) => {
               r: 6, 
               fill: '#6366f1',
               stroke: '#fff',
-              strokeWidth: 2,
-              filter: 'url(#glow)'
+              strokeWidth: 2
             }}
           />
           
@@ -222,8 +206,7 @@ const AreaChart = ({ title }) => {
               r: 6, 
               fill: '#22c55e',
               stroke: '#fff',
-              strokeWidth: 2,
-              filter: 'url(#glow)'
+              strokeWidth: 2
             }}
           />
         </RechartsArea>

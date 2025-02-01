@@ -150,10 +150,6 @@ const PieChart = ({ title }) => {
             outerRadius={125}
             dataKey="value"
             onMouseEnter={(_, index) => setActiveIndex(index)}
-            animationBegin={0}
-            animationDuration={800}
-            animationEasing="ease-out"
-            paddingAngle={3}
           >
             {data.map((entry, index) => (
               <Cell

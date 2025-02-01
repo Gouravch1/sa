@@ -1,4 +1,4 @@
-import { LineChart as RechartsLine, Line, XAxis, YAxis, ResponsiveContainer, Area, CartesianGrid, Tooltip } from 'recharts';
+import { LineChart as RechartsLine, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
 import styled from '@emotion/styled';
 
 const ChartCard = styled.div`
@@ -76,12 +76,6 @@ const LineChart = ({ title }) => {
       <h3>{title}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <RechartsLine data={data} margin={{ top: 20, right: 30, bottom: 20, left: 20 }}>
-          <defs>
-            <linearGradient id="donationGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#6366f1" stopOpacity={0.1}/>
-            </linearGradient>
-          </defs>
           <Line 
             type="monotone" 
             dataKey="donations" 
